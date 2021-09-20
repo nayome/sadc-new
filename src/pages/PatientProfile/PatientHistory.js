@@ -11,6 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
+import Appointment from '../Appointment';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -99,7 +100,7 @@ function TabPanel(props) {
         {...other}
       >
         {value === index && (
-          <Box p={3}>
+          <Box p={1}>
             <Typography>{children}</Typography>
           </Box>
         )}
@@ -132,7 +133,7 @@ export default function PatientHistory(props) {
         setTabValue(newValue);
     };
   
-    console.log("i am here in hoistory", {appointmentsList},{notes});
+    console.log("i am here in history", {appointmentsList},{notes});
 
     // const toggleTab = (index) => {
     //     console.log(index);
@@ -149,23 +150,48 @@ export default function PatientHistory(props) {
         return new Date(string).toLocaleDateString([],options);
     }
     
+    const getAptsLabel = () => {
+        var count = (appointmentsList && appointmentsList ? appointmentsList.length: 0)
+        return (count + " Appointments")
+    }
+
+    const getNotesLabel = () => {
+        var count = (notes && notes ? notes.length: 0)
+        return (count + " Notes")
+    }
+
     return (
         <div className={classes.root}>
         <AppBar position="static">
           <Tabs value={tabValue} onChange={handleChange}>
-            <Tab label={appointmentsList ? appointmentsList.length : 0} {...a11yProps(0)} />
-            <Tab label="Item Two" {...a11yProps(1)} />
-            <Tab label="Item Three" {...a11yProps(2)} />
+            <Tab label={getAptsLabel()} {...a11yProps(0)} />
+            <Tab label={getNotesLabel()} {...a11yProps(1)} />
           </Tabs>
         </AppBar>
         <TabPanel value={tabValue} index={0}>
-          Item One
+            <Paper>
+                <div className={toggleState === 0 ? "content  active-content" : "content"}>
+                { appointmentsList &&
+                    appointmentsList.map(item => (
+                        <div>
+                            <div className={classes.headerStyling}>On {formatDate(item.date)}</div>
+                            <div className={classes.listStyling}>
+                            <Avatar className={classes.avatar}>
+                                <EventAvailableIcon/>
+                            </Avatar>
+                            <div className={classes.textStyling}>
+                                <div>Appointment at {item.slot}</div>
+                                <div>{item.reason}</div>
+                            </div>
+                        </div>
+                    </div>
+                ))
+                }
+            </div>
+            </Paper>
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
           Item Two
-        </TabPanel>
-        <TabPanel value={tabValue} index={2}>
-          Item Three
         </TabPanel>
       </div>
   
@@ -185,24 +211,24 @@ export default function PatientHistory(props) {
         //     </div>
         //     <div className={classes.content}>
         //         <div className="content-tabs">
-        //             <div className={toggleState === 0 ? "content  active-content" : "content"}>
-        //                 { appointmentsList &&
-        //                     appointmentsList.map(item => (
-        //                         <div>
-        //                             <div className={classes.headerStyling}>On {formatDate(item.date)}</div>
-        //                             <div className={classes.listStyling}>
-        //                             <Avatar className={classes.avatar}>
-        //                                 <EventAvailableIcon/>
-        //                             </Avatar>
-        //                             <div className={classes.textStyling}>
-        //                                 <div>Appointment at {item.slot}</div>
-        //                                 <div>{item.reason}</div>
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 ))
-        //                 }
-        //             </div>
+                    // <div className={toggleState === 0 ? "content  active-content" : "content"}>
+                    //     { appointmentsList &&
+                    //         appointmentsList.map(item => (
+                    //             <div>
+                    //                 <div className={classes.headerStyling}>On {formatDate(item.date)}</div>
+                    //                 <div className={classes.listStyling}>
+                    //                 <Avatar className={classes.avatar}>
+                    //                     <EventAvailableIcon/>
+                    //                 </Avatar>
+                    //                 <div className={classes.textStyling}>
+                    //                     <div>Appointment at {item.slot}</div>
+                    //                     <div>{item.reason}</div>
+                    //                 </div>
+                    //             </div>
+                    //         </div>
+                    //     ))
+                    //     }
+                    // </div>
         //             <div className={toggleState === 1 ? "content  active-content" : "content"}>
         //             { 
         //                   notes &&  notes.map(item => (
