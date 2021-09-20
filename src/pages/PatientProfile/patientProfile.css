@@ -1,0 +1,72 @@
+.patientProfile {
+    flex: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+    margin-left: 50px;
+}
+
+
+.main-div {
+    display: flex;
+    flex-direction: row;
+    /* position: relative;
+    height: 100%;
+    max-height: calc(100vh-9rem) */
+  }
+  
+  .menu-div {
+    display: grid;
+    gap: 5px;
+    min-width: 250px;
+    background:'#253053';
+    height: calc(100vh - 50px);
+    border-right: 1px solid #253053;
+  }
+  
+  .menu-div-items {
+    width: 230px;
+    padding: 15px 15px 15px 5px;
+    text-align: left;
+    background: rgb(56,71,79);
+    color: white;
+    cursor: pointer;
+    box-sizing: content-box;
+    position: relative;
+    outline: none; 
+  }
+  
+  .menu-div-ul {
+    padding-inline-start: 5px;
+  }
+  
+  .active-menu-div-items  {
+    background: white;
+    border-left: 4px solid rgb(205,152,146);
+    color: rgb(56,71,79);
+    border-right: 1px solid rgb(89, 115, 129);
+    width: auto;
+    border-bottom:1px solid rgb(56,71,79);
+  }
+  
+  .active-menu-div-items::before {
+    background: white;
+    border-left: 4px solid rgb(205,152,146);
+    color: rgb(56,71,79);
+    border-right: 1px solid rgb(89, 115, 129);
+  }
+   
+  .content-tabs {
+    flex-grow : 1;
+  }
+  
+  .content {
+    width: 100%;
+    height: 100%;
+    display: none;
+  }
+  
+  .active-content {
+    display: block;
+  } 

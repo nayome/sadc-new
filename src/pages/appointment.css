@@ -1,0 +1,94 @@
+.addApointment-page {
+    width: 70%;
+    border-radius: 4px;
+    border: solid 1px #ddd;
+    margin: 20px 20px 0px 20px;
+}
+
+.labelStyling {
+    font-size: 14px;
+    padding-top: 20px;
+}
+
+.form-group {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.divAlignLeft {
+    width: 100px;
+    text-align: right;
+    position: relative;
+}
+
+.body_bookApt {
+    display: grid;
+}
+
+.dropDown-aapt {
+    width: 170px;
+}
+
+.txtAraStyling {
+    border: 1px solid gainsboro;
+    border-radius: 3px;
+}
+
+.slotDiv {
+    width: 80%;
+    margin: 20px;
+    border: 1px solid gainsboro;
+    display: block;
+    gap: 10px;
+}
+
+.btn-slot{
+    font-size: 15px;
+    border-style:hidden;
+    background-color: white;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+.btn-slot:hover{
+    color: white;
+    background-color: #2274ee;
+    border-radius: 3px;    
+    font-weight:500;
+}
+
+.btn-slot:focus {
+    color: white;
+    border-radius: 3px;    
+    background-color: green;
+    font-weight:400;
+}
+
+.btn-slot:disabled{
+    color: white;
+    border-radius: 3px;    
+    background-color: rgb(49,160,200);
+    font-weight:400;
+}
+
+.footer-div{
+    margin: 0px 10px 0px 10px;
+    float: left;
+}
+
+.chkbox-spacing {
+    display: flex;
+    gap: 5px;
+    padding-top: 5px;     
+}
+
+.col-spacing {
+    display: flex;
+    gap: 25px; 
+    padding: 15px 15px 5px 15px;
+
+}
+
+.chbx {
+   vertical-align: baseline; 
+}
