@@ -5,6 +5,7 @@ import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useHistory } from 'react-router-dom';
+import PatientProfile from "../../pages/PatientProfile/PatientProfile";
 
 const useStyles = makeStyles(theme => ({
     root: {

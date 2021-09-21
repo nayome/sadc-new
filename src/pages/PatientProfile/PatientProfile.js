@@ -143,7 +143,7 @@ const useStyles = makeStyles({
   
   
 
-function PatientProfile(props) {
+function PatientProfile() {
     const classes = useStyles();
     const location = useLocation();
     const [data, setData] = useState(null);
@@ -152,12 +152,8 @@ function PatientProfile(props) {
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
     const [toggleState, setToggleState] = useState(0);
     const [notify, setNotify] = useState({isOpen: false, message:'',type:''});
-    const [tabValue, setTabValue] = React.useState(0);
     const history = useHistory();
 
-    const handleChange = (event, newValue) => {
-        setTabValue(newValue);
-    };
   
     const toggleTab = (index) => {
         console.log(index);
@@ -177,7 +173,7 @@ function PatientProfile(props) {
             console.log(data, apptsList,notes);   
         };    
         fetchData()
-      }, []);
+      }, [location]);
 
     
       const onDelete = id => {

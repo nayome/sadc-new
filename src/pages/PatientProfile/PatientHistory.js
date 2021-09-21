@@ -135,13 +135,7 @@ export default function PatientHistory(props) {
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
     };
-  
     console.log("i am here in history", {appointmentsList},{notes});
-
-    // const toggleTab = (index) => {
-    //     console.log(index);
-    //   setToggleState(index);
-    // };
 
     useEffect(() => {
         console.log(appointmentsList,notesData);
@@ -165,7 +159,7 @@ export default function PatientHistory(props) {
 
     return (
         <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" style={{ backgroundColor: '#253053' }}>
           <Tabs value={tabValue} onChange={handleChange}>
             <Tab label={getAptsLabel()} {...a11yProps(0)} />
             <Tab label={getNotesLabel()} {...a11yProps(1)} />
@@ -173,8 +167,7 @@ export default function PatientHistory(props) {
         </AppBar>
         
         <TabPanel value={tabValue} index={0} className={classes.tabpanelbg}>
-            <Paper>
-                <div className={toggleState === 0 ? "content  active-content" : "content"}>
+                <div className={tabValue === 0 ? "content  active-content" : "content"}>
                 { appointmentsList &&
                     appointmentsList.map(item => (
                         <div>
@@ -192,29 +185,32 @@ export default function PatientHistory(props) {
                 ))
                 }
             </div>
-            </Paper>
         </TabPanel>
         <TabPanel value={tabValue} index={1} className={classes.tabpanelbg}>
-          Item Two
+          <div className={tabValue === 1 ? "content  active-content" : "content"}>
+          { notes &&  notes.map(item => (
+                <div>
+                    <div className={classes.headerStyling}>On {formatDate(item.appointmentDate)}</div>
+                        <div className={classes.titleBar}>
+                            <Avatar className={classes.avatar}>
+                                <EditIcon/>
+                            </Avatar>
+                        </div>
+                        <div className={classes.listStylingNotes}>
+                        <div className={classes.textStyling}>
+                            <div className={classes.textStyling2}>
+                                Treatment Notes
+                            </div>
+                            <div>{item.note}</div>
+                        </div>
+                </div>
+            </div>
+            ))}
+            </div>
         </TabPanel>
       </div>
       
   
-        // <Paper className={classes.root}>
-        //     <div className={classes.header}>
-        //         <button className={classes.buttonStyle}
-        //         onClick={() => toggleTab(0)}
-        //         >
-        //             <span>{appointmentsList ? appointmentsList.length:0} </span>
-        //             Appointments
-        //         </button> 
-        //         <button className={classes.buttonStyle}
-        //                 onClick={() => toggleTab(1)}
-        //         >
-        //             <span>{notes ? notes.length:0} </span> Notes
-        //         </button> 
-        //     </div>
-        //     <div className={classes.content}>
         //         <div className="content-tabs">
                     // <div className={toggleState === 0 ? "content  active-content" : "content"}>
                     //     { appointmentsList &&
@@ -234,28 +230,6 @@ export default function PatientHistory(props) {
                     //     ))
                     //     }
                     // </div>
-        //             <div className={toggleState === 1 ? "content  active-content" : "content"}>
-        //             { 
-        //                   notes &&  notes.map(item => (
-        //                         <div>
-        //                             <div className={classes.headerStyling}>On {formatDate(item.appointmentDate)}</div>
-        //                                 <div className={classes.titleBar}>
-        //                                     <Avatar className={classes.avatar}>
-        //                                         <EditIcon/>
-        //                                     </Avatar>
-        //                                 </div>
-        //                                 <div className={classes.listStylingNotes}>
-        //                                 <div className={classes.textStyling}>
-        //                                     <div className={classes.textStyling2}>
-        //                                         Treatment Notes
-        //                                     </div>
-        //                                     <div>{item.note}</div>
-        //                                 </div>
-        //                         </div>
-        //                     </div>
-        //                 ))
-        //                 }
-        //             </div>
         //         </div>
 
         //     </div>

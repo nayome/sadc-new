@@ -17,7 +17,7 @@ const useStyles = makeStyles({
             width: '160px',
             color: 'white'
         },
-    },
+     },
     sidebarWrapper: {
         padding: '5px',
         color: '#fff'
@@ -28,7 +28,8 @@ const useStyles = makeStyles({
     },
     sidebarList: {
         listStyle: 'none',
-        padding: '5px'
+        padding: '5px',
+
     },
     sidebarListItem: {
         padding: '5px',
