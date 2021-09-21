@@ -85,6 +85,9 @@ const useStyles = makeStyles((theme) => ({
           padding: '10px',  
           borderTopLeftRadius: '4px',
           borderTopRightRadius: '4px',
+        },
+        tabpanelbg:{
+         backgroundColor:"#FFFFFF",
         }
 }))
 
@@ -168,7 +171,8 @@ export default function PatientHistory(props) {
             <Tab label={getNotesLabel()} {...a11yProps(1)} />
           </Tabs>
         </AppBar>
-        <TabPanel value={tabValue} index={0}>
+        
+        <TabPanel value={tabValue} index={0} className={classes.tabpanelbg}>
             <Paper>
                 <div className={toggleState === 0 ? "content  active-content" : "content"}>
                 { appointmentsList &&
@@ -190,10 +194,11 @@ export default function PatientHistory(props) {
             </div>
             </Paper>
         </TabPanel>
-        <TabPanel value={tabValue} index={1}>
+        <TabPanel value={tabValue} index={1} className={classes.tabpanelbg}>
           Item Two
         </TabPanel>
       </div>
+      
   
         // <Paper className={classes.root}>
         //     <div className={classes.header}>
