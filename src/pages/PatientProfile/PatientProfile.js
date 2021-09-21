@@ -15,8 +15,8 @@ import PatientNotes from "./PatientNotes";
 import Notification from "../../components/controls/Notification";
 import PatientAppointment from "./PatientAppointment";
 
-import createBrowserHistory from 'history/createBrowserHistory';
-const history = createBrowserHistory({forceRefresh:true});
+import history from '../../components/history';
+// const history = createBrowserHistory({forceRefresh:true});
 
 
 const useStyles = makeStyles({

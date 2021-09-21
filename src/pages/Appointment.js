@@ -5,8 +5,9 @@ import Controls from '../components/controls/Controls';
 import './appointment.css';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import createBrowserHistory from 'history/createBrowserHistory';
-const history = createBrowserHistory({forceRefresh:true});
+// import createBrowserHistory from 'history/createBrowserHistory';
+// const history = createBrowserHistory({forceRefresh:true});
+import history from "./../components/history";
 
 const docCatItems = [
     { id: '0', title: 'Jr. Doctor' },

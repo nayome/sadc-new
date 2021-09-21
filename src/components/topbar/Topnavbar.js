@@ -4,9 +4,7 @@ import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import createBrowserHistory from 'history/createBrowserHistory';
-const history = createBrowserHistory({forceRefresh:true});
-
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,7 +25,8 @@ export default function Header() {
     const classes = useStyles();
     const [inputValue, setInputValue] = useState('');
     const [options, setOptions] = useState([]);
-     
+    const history = useHistory();
+
     const handleAdd= () => {
         console.log("add")
         history.push('/registerPatient'); // <--- The page you want to redirect your user to.
@@ -56,6 +55,7 @@ export default function Header() {
               }
               else 
               {
+                  console.log("iam here in else ",options)
                   setOptions(response.data.patinetSearchData);
               }
             })

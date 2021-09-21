@@ -8,8 +8,10 @@ import Popup from "../../components/controls/Popup";
 import Appointment from "../Appointment";
 import Notification from "../../components/controls/Notification";
 import axios from 'axios';
-import createBrowserHistory from 'history/createBrowserHistory';
-const history = createBrowserHistory({forceRefresh:true});
+import history from '../../components/history';
+
+// import createBrowserHistory from 'history/createBrowserHistory';
+// const history = createBrowserHistory({forceRefresh:true});
 
 const genderItems = [
     { id: 'male', title: 'Male' },

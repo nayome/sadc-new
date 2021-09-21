@@ -3,7 +3,7 @@ import SideMenu from "./components/sidebar/SideMenu.js";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Calendar from "./pages/Calendar/Calendar";
 import Settings from "./pages/Settings/Settings.js";
-import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import RegisterPatient from "./pages/PatientRegistration/RegisterPatient.js";
 import {  CssBaseline, createTheme, ThemeProvider } from '@material-ui/core';
 import PatientProfile from "./pages/PatientProfile/PatientProfile.js";
