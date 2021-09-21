@@ -14,9 +14,8 @@ import PatientHistory from "./PatientHistory";
 import PatientNotes from "./PatientNotes";
 import Notification from "../../components/controls/Notification";
 import PatientAppointment from "./PatientAppointment";
+import { useHistory } from 'react-router-dom';
 
-import history from '../../components/history';
-// const history = createBrowserHistory({forceRefresh:true});
 
 
 const useStyles = makeStyles({
@@ -154,6 +153,7 @@ function PatientProfile(props) {
     const [toggleState, setToggleState] = useState(0);
     const [notify, setNotify] = useState({isOpen: false, message:'',type:''});
     const [tabValue, setTabValue] = React.useState(0);
+    const history = useHistory();
 
     const handleChange = (event, newValue) => {
         setTabValue(newValue);

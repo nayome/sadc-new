@@ -5,9 +5,7 @@ import Controls from '../components/controls/Controls';
 import './appointment.css';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-// import createBrowserHistory from 'history/createBrowserHistory';
-// const history = createBrowserHistory({forceRefresh:true});
-import history from "./../components/history";
+import { useHistory } from 'react-router-dom';
 
 const docCatItems = [
     { id: '0', title: 'Jr. Doctor' },
@@ -138,7 +136,7 @@ function createSlots(slotConfig){
 
 export default function Appointment(props) {
     const { recordForEdit,  onClose } = props;
-
+    const history = useHistory();
     const [timeSlots,setTimeSlots] = useState([]);
     const classes = useStyles();
 

@@ -8,10 +8,8 @@ import Popup from "../../components/controls/Popup";
 import Appointment from "../Appointment";
 import Notification from "../../components/controls/Notification";
 import axios from 'axios';
-import history from '../../components/history';
+import { useHistory } from 'react-router-dom';
 
-// import createBrowserHistory from 'history/createBrowserHistory';
-// const history = createBrowserHistory({forceRefresh:true});
 
 const genderItems = [
     { id: 'male', title: 'Male' },
@@ -102,6 +100,7 @@ function RegisterPatient() {
     const [openPopup, setOpenPopup] = useState(false);
     const [notify, setNotify] = useState({isOpen: false, message:'',type:''});
     const [recordForEdit, setRecordForEdit] = useState(null)
+    const history = useHistory();
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
