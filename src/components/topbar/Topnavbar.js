@@ -66,9 +66,6 @@ export default function Header() {
         else {
             callSearch(inputValue)
         }
-      
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-
     }, [inputValue]);
     
 
@@ -88,9 +85,10 @@ export default function Header() {
                         freeSolo
                         id="free-solo-2-demo"
                         disableClearable
+                        value={inputValue}
                         options={options}
-                        getOptionLabel={(option) =>( option.firstName
-                        )}
+                        // getOptionLabel={(option) =>( option.firstName
+                        // )}
                         filterOptions={(options) => options}
                         filterSelectedOptions
                         renderOption={(option) => (
@@ -115,6 +113,8 @@ export default function Header() {
                                 pathname: '/patientDetails',
                                 state: {detail: value.patientId},
                               });
+                            setInputValue("");
+                            setOptions([]);
                         }} // prints the selected value
                         onInputChange={(event, newInputValue) => {
                             if(event.type === "change")
