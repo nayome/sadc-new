@@ -157,7 +157,6 @@ export default function Appointment(props) {
         errors,
         setErrors,
         handleInputChange,
-        resetForm,
     } = useForm(initialAValues, true, validate);
     
     const handleSubmit = e => {

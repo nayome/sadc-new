@@ -33,39 +33,41 @@ export default function Header() {
 
     }
 
+    const callSearch = (searchText) => {
+        axios.get(
+            `http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/search/${searchText}`, { headers: {
+                    searchBy: 'Key',
+                    }}
+        )
+        .then(response => {
+            console.log(response)    
+            if (response.data === "")
+            {
+                setOptions([]);
+            }
+            else 
+            {
+                setOptions(response.data.patinetSearchData);
+                // console.log("iam here in else ",options)
+            }
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
+    }
 
     React.useEffect(() => {
         console.log("ran effect")
         if (inputValue === '') {
-            setOptions([]);
-            return undefined;
-          }
+            return;
+        }
+        else {
+            callSearch(inputValue)
+        }
       
-          axios.get(
-              `http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/search/${inputValue}`, { headers: {
-                       searchBy: 'Key',
-                     }}
-            )
-            .then(response => {
-              console.log(response)
-      
-              if (response.data === "")
-              {
-                  setOptions([]);
-              }
-              else 
-              {
-                  console.log("iam here in else ",options)
-                  setOptions(response.data.patinetSearchData);
-              }
-            })
-            .catch(error => {
-              console.log(error)
-            })
-            return () => {
-            ;
-          };
-  
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [inputValue]);
     
 
@@ -86,7 +88,10 @@ export default function Header() {
                         id="free-solo-2-demo"
                         disableClearable
                         options={options}
-                        getOptionLabel={(option) => option.firstName}
+                        getOptionLabel={(option) =>( option.firstName
+                        )}
+                        filterOptions={(options) => options}
+                        filterSelectedOptions
                         renderOption={(option) => (
                           <React.Fragment>
                             {option.firstName} ({option.patientId})                          
@@ -104,14 +109,11 @@ export default function Header() {
                         )}
                         onChange={(event, value) => {
                             console.log("i am un change")
-                            console.log(value)
                             console.log(value.patientId)
-                            // options.filter${inputValue}
                             history.push({
                                 pathname: '/patientDetails',
                                 state: {detail: value.patientId},
                               });
-                            // history.push('/patientDetails/',value.patientId); // <--- The page you want to redirect your user to.
                         }} // prints the selected value
                         onInputChange={(event, newInputValue) => {
                             if(event.type === "change")
