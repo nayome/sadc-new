@@ -38,6 +38,11 @@ const useStyles = makeStyles({
         display:'grid',
         gap:'0px',
     },
+    sideMenu_AvatarWrapper: {
+        background: '#253053',
+        color: '#fff',
+        position: 'none',
+    },
     sideMenu_topWrapper: {
         width: '100%',
         height: '75px',
@@ -48,9 +53,10 @@ const useStyles = makeStyles({
         paddingBottom: '8px',
         display:'flex',
         gap: '8px',
-        position: 'relative',
+        // position: 'relative',
         // zIndex: '1',
-        background: 'white',
+        background: '#fff',
+        color: '#253053',
         maxWidth: '280px',
         borderRight: '1px solid #ccc',
         overflow: 'hidden',
@@ -170,6 +176,7 @@ function PatientProfile() {
             setData(respGlobal.data);
             setApptsList(respGlobal.data.appointments);
             setNotes(respGlobal.data.patientNotes);
+            setToggleState(0);
             console.log(data, apptsList,notes);   
         };    
         fetchData()
@@ -208,8 +215,8 @@ function PatientProfile() {
                     <ul className={classes.sidebarList}>
                     <li>
                         <div className={classes.sideMenu_topWrapper}>
-                        <div>
-                            <Avatar src="/broken-image.jpg" />
+                        <div >
+                            <Avatar src="/broken-image.jpg" className={classes.sideMenu_AvatarWrapper}/>
                         </div>
                         <div>
                             <div className={classes.styling}>
@@ -217,7 +224,7 @@ function PatientProfile() {
                                 <label>{data && data.lastName}</label>
                             </div>
                             <div className={classes.h6styling}>
-                                <label>{data && (data.gender == "Female" ? 'F':'M')}</label>
+                                <label>{data && (data.gender === "Female" ? 'F':'M')}</label>
                                 <label>{data && data.contactNumber}</label>
                             </div>
                         </div>

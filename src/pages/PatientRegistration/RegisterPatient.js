@@ -134,16 +134,16 @@ function RegisterPatient() {
     const handleSubmit = e => {
         e.preventDefault()
          if(validate()){
-             console.log(values);
+            console.log(values);
             axios.post('http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/upsert',values)
             .then (response => {
                 console.log("in submit",response);
-                setNotify({isOpen:true,message:'Submitted Successfully',type:'success'})
+                setNotify({isOpen:true,message:'Patient Added Successfully',type:'success'})
                 resetForm();
             })
             .catch (error => {
                 console.log(error);
-                setNotify({isOpen:true,message:'Submission Failed',type:'error'})
+                setNotify({isOpen:true,message:'Patient add Failed',type:'error'})
             })
         }
     }
@@ -173,6 +173,7 @@ function RegisterPatient() {
         // e.preventDefault();
         // setRecordForEdit(item)
         if(validate()){
+            console.log(values);
             axios.post('http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/upsert',values)
             .then (response => {
                 console.log("in popup",response);
@@ -184,7 +185,7 @@ function RegisterPatient() {
             })
             .catch (error => {
                 console.log(error);
-                setNotify({isOpen:true,message:'Submission Failed',type:'failure'})
+                setNotify({isOpen:true,message:'Submission Failed',type:'error'})
             })
          }
     }

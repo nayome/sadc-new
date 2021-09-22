@@ -6,6 +6,7 @@ import { useForm, Form } from '../../components/useForm';
 import axios from 'axios';
 import Notification from "../../components/controls/Notification";
 import Paper from '@material-ui/core/Paper';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,13 +39,14 @@ const intialFValues = {
 }
 
 export default function PatientNotes(props) {
-    const { recordForEdit,  onClose } = props;
+    const { recordForEdit } = props;
     const classes = useStyles();
     const [notify, setNotify] = useState({isOpen: false, message:'',type:''});
-    // console.log("in patient notes",recordForEdit);
+    const history = useHistory();
 
     const validate = (fieldValues = values) => {
          let temp = { ...errors }
+         console.log(fieldValues)
         if ('notes' in fieldValues)
         temp.notes = fieldValues.notes? "": "Please enter some notes before saving."
 
@@ -52,12 +54,8 @@ export default function PatientNotes(props) {
             ...temp
         })
 
-        setValues({
-            ...values,
-            ["patientId"]: recordForEdit
-        })
-        if (fieldValues == values)
-        return Object.values(temp).every(x => x == "")
+        if (fieldValues === values)
+        return Object.values(temp).every(x => x === "")
     }
 
 
@@ -79,7 +77,7 @@ export default function PatientNotes(props) {
                 ["patientId"]: recordForEdit
             })
         console.log(values)
-    }, [])
+    }, [props])
 
 
     const handleSubmit = e => {
@@ -89,13 +87,20 @@ export default function PatientNotes(props) {
             axios.post(' http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/upsert',values)
             .then (response => {
                 console.log(response);
-                setNotify({isOpen:true,message:'Note added successfully',type:'success'})
+                setNotify({isOpen:true,message:'Note added successfully.',type:'success'})
+                history.push({
+                    pathname: '/patientDetails',
+                    state: {detail: values.patientId},
+                  });
                 resetForm();
             })
             .catch (error => {
                 console.log(error);
-                setNotify({isOpen:true,message:'Note adding Failed',type:'error'})
+                setNotify({isOpen:true,message:'Note adding Failed.',type:'error'})
             })
+        }
+        else{
+            setNotify({isOpen:true,message:'Note cannot be empty.',type:'error'})
         }
 
     }

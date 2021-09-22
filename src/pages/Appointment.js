@@ -197,7 +197,7 @@ export default function Appointment(props) {
                 ...values,
                 ["patientId"]: recordForEdit
             })
-    }, [recordForEdit])
+    }, [props])
 
     const handleDurationChange = event => {
         console.log("handle dur change" + event.target.value)

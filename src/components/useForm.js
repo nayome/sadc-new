@@ -8,12 +8,14 @@ export function useForm(initialFValues, validateOnChange = false, validate) {
     const [errors, setErrors] = useState({});
 
     const handleInputChange = e => {
-        console.log("handle change" + e.target.value)
+        // console.log("handle change " + e.target.name + " "+ e.target.value)
         const { name, value } = e.target
         setValues({
             ...values,
             [name]: value
         })
+        // console.log("handle change ", values)
+
         if (validateOnChange)
         validate({ [name]: value })
     }

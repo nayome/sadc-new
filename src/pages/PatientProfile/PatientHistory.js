@@ -1,6 +1,5 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import './patientProfile.css';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import Avatar from '@material-ui/core/Avatar';
@@ -11,7 +10,6 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
-import Appointment from '../Appointment';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -127,20 +125,12 @@ function TabPanel(props) {
 export default function PatientHistory(props) {
     const { appointmentsList, notes } = props;
     const classes = useStyles();
-    const [toggleState, setToggleState] = useState(0);
-    const [appointmentsData, setAppointmentsData] = useState([])
-    const [notesData, setNotesData] = useState([])
     const [tabValue, setTabValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
     };
     console.log("i am here in history", {appointmentsList},{notes});
-
-    useEffect(() => {
-        console.log(appointmentsList,notesData);
-    }, [])
-
 
     const formatDate = (string) => {
         var options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -209,30 +199,5 @@ export default function PatientHistory(props) {
             </div>
         </TabPanel>
       </div>
-      
-  
-        //         <div className="content-tabs">
-                    // <div className={toggleState === 0 ? "content  active-content" : "content"}>
-                    //     { appointmentsList &&
-                    //         appointmentsList.map(item => (
-                    //             <div>
-                    //                 <div className={classes.headerStyling}>On {formatDate(item.date)}</div>
-                    //                 <div className={classes.listStyling}>
-                    //                 <Avatar className={classes.avatar}>
-                    //                     <EventAvailableIcon/>
-                    //                 </Avatar>
-                    //                 <div className={classes.textStyling}>
-                    //                     <div>Appointment at {item.slot}</div>
-                    //                     <div>{item.reason}</div>
-                    //                 </div>
-                    //             </div>
-                    //         </div>
-                    //     ))
-                    //     }
-                    // </div>
-        //         </div>
-
-        //     </div>
-        // </Paper>
     )
 }
