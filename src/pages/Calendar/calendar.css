@@ -3,5 +3,125 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    margin: 2px;
+    margin-left: 50px;
 }
+
+.rowStyling {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    justify-content: left;
+    width: 100%;
+    height: calc(100vh - 50px);
+    padding-left: 20px;
+}
+
+.row-1-cal{
+    width:20%;
+    border-right: solid;
+    border-right-width:1px;
+    border-right-color:#ccc;
+    padding-top: 10px;
+   }
+
+.row-2-cal{
+    width: 80%;
+    border-right: solid;
+    border-right-width:1px;
+    border-right-color:#ccc;
+}
+.row-3-cal{
+  width: 20%;
+  border-right: solid;
+  border-right-width:1px;
+  border-right-color:#ccc;
+  padding-top: 10px;
+}
+
+.ipt-cal{
+       width: 95%;
+       height: 30px;
+       border-radius: 5px;
+       border:1px solid #ccc;
+        }
+   .datalist {
+    display: none;
+  }
+  .lbl-inf{
+      font-size:1.5em;
+  }
+  .dur-slt{
+      width: 100px;
+      height: 30px;
+      border:1px solid #ccc;
+      border-radius: 5px;
+      float: right;
+      margin-right:10px;
+  }
+  .chk-spn{
+      margin-left: 15px;
+  }
+  
+.appointment-state {
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    width: 60px;
+   }
+
+.appointment-state-wrapper {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+.appointment-state-number-wrapper{
+    font-size:30px;
+}
+.appointment-state.state-schedule {
+    border: 1px solid #f5b341;
+}
+.appointment-state.state-waiting {
+    border: 1px solid #54c151;
+}
+.appointment-state.state-engage {
+    border: 1px solid #36c9e6;
+}
+.appointment-state.state-checkout {
+    border: 1px solid #df5c5c;
+}
+.appointment-state.state-schedule .appointment-state-detail-wrapper {
+    background: #f5b341;
+    color:white;
+}
+.appointment-state.state-schedule .appointment-state-number-wrapper {
+    color: #f5b341;
+   }
+.appointment-state.state-waiting .appointment-state-detail-wrapper {
+    background: #54c151;
+    color:white;
+}
+.appointment-state.state-waiting .appointment-state-number-wrapper {
+    color: #54c151;
+    
+}
+.appointment-state.state-engage .appointment-state-detail-wrapper {
+    background: #36c9e6;
+    color:white;
+}
+.appointment-state.state-engage .appointment-state-number-wrapper {
+    color: #36c9e6;
+   
+}
+.appointment-state.state-checkout .appointment-state-detail-wrapper {
+    background: #df5c5c;
+    color:white;
+}
+.appointment-state.state-checkout .appointment-state-number-wrapper {
+    color: #df5c5c;
+    
+  }
+
