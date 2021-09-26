@@ -39,33 +39,33 @@ const theme = createTheme({
 
 function App() {
   return (
-    <div className="App">
-      <h1>Login With Google</h1>
-      <GoogleLogin
-    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-    buttonText="Login"
-    onSuccess={responseGoogle}
-    onFailure={responseGoogle}
-    cookiePolicy={'single_host_origin'}
-  />,
+  //   <div className="App">
+  //     <h1>Login With Google</h1>
+  //     <GoogleLogin
+  //   clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+  //   buttonText="Login"
+  //   onSuccess={responseGoogle}
+  //   onFailure={responseGoogle}
+  //   cookiePolicy={'single_host_origin'}
+  // />,
 
-    </div>
-    // <ThemeProvider theme={theme}>
-    // <Router>
-    //   <Topnavbar/>
-    //     <div className="container">
-    //       <SideMenu/>
-    //         <Switch>
-    //           <Route exact path="/"><Dashboard/></Route>
-    //           <Route path="/calendar"><Calendar/></Route>
-    //           <Route path="/settings" exact component={Settings}></Route>
-    //           <Route path='/registerPatient' exact component={RegisterPatient} />
-    //           <Route path='/patientDetails' exact component={PatientProfile} />
-    //         </Switch>
-    //     </div>
-    // </Router>      
-    // <CssBaseline />
-    // </ThemeProvider>
+  //   </div>
+    <ThemeProvider theme={theme}>
+    <Router>
+      <Topnavbar/>
+        <div className="container">
+          <SideMenu/>
+            <Switch>
+              <Route exact path="/"><Dashboard/></Route>
+              <Route path="/calendar"><Calendar/></Route>
+              <Route path="/settings" exact component={Settings}></Route>
+              <Route path='/registerPatient' exact component={RegisterPatient} />
+              <Route path='/patientDetails' exact component={PatientProfile} />
+            </Switch>
+        </div>
+    </Router>      
+    <CssBaseline />
+    </ThemeProvider>
   );
 }
 
