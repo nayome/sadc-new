@@ -113,7 +113,7 @@ function RegisterPatient() {
         if ('emailId' in fieldValues)
         temp.emailId = (/$^|.+@.+..+/).test(values.emailId) ? "" : "Email is not valid."
         if('contactNumber' in fieldValues)
-        temp.contactNumber = values.contactNumber.length>9? "": "This field is required."
+        temp.contactNumber = values.contactNumber.length >= 9 ? "": "Please enter 10 digit phone number"
 
         setErrors({
             ...temp

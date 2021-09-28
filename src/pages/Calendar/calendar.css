@@ -39,6 +39,7 @@
   padding-top: 10px;
 }
 
+
 .ipt-cal{
        width: 95%;
        height: 30px;
@@ -52,76 +53,18 @@
       font-size:1.5em;
   }
   .dur-slt{
-      width: 100px;
-      height: 30px;
-      border:1px solid #ccc;
-      border-radius: 5px;
-      float: right;
-      margin-right:10px;
+    font-size: 12px;
+    line-height: 1.5px;
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid gainsboro;
   }
   .chk-spn{
       margin-left: 15px;
   }
   
-.appointment-state {
-    text-align: center;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    width: 60px;
-   }
-
-.appointment-state-wrapper {
-    margin-top: 15px;
+.settingsStyling {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-shrink: 0;
-}
-.appointment-state-number-wrapper{
-    font-size:30px;
-}
-.appointment-state.state-schedule {
-    border: 1px solid #f5b341;
-}
-.appointment-state.state-waiting {
-    border: 1px solid #54c151;
-}
-.appointment-state.state-engage {
-    border: 1px solid #36c9e6;
-}
-.appointment-state.state-checkout {
-    border: 1px solid #df5c5c;
-}
-.appointment-state.state-schedule .appointment-state-detail-wrapper {
-    background: #f5b341;
-    color:white;
-}
-.appointment-state.state-schedule .appointment-state-number-wrapper {
-    color: #f5b341;
-   }
-.appointment-state.state-waiting .appointment-state-detail-wrapper {
-    background: #54c151;
-    color:white;
-}
-.appointment-state.state-waiting .appointment-state-number-wrapper {
-    color: #54c151;
+    gap: 10px;
     
 }
-.appointment-state.state-engage .appointment-state-detail-wrapper {
-    background: #36c9e6;
-    color:white;
-}
-.appointment-state.state-engage .appointment-state-number-wrapper {
-    color: #36c9e6;
-   
-}
-.appointment-state.state-checkout .appointment-state-detail-wrapper {
-    background: #df5c5c;
-    color:white;
-}
-.appointment-state.state-checkout .appointment-state-number-wrapper {
-    color: #df5c5c;
-    
-  }
-

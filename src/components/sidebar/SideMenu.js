@@ -63,24 +63,24 @@ function SideMenu() {
             <div className={classes.sidebarWrapper}>
                 <div className={classes.sidebarMenu}>
                     <ul className={classes.sidebarList}>
-                    <Link to="/" className="link">
+                    {/* <Link to="/dashboard" className="link">
                         <li className={classes.sidebarListItem}>
                             <Dashboard className={classes.sidebarIcon}/>
                             Dashboard
                         </li>
-                        </Link>
-                        <Link to="/calendar" className="link">
+                        </Link> */}
+                        <Link to="/" className="link">
                         <li className={classes.sidebarListItem}>
                             <Event className={classes.sidebarIcon}/>
                             Calendar
                         </li>
                         </Link>
-                        <Link to="/settings" className="link">
+                        {/* <Link to="/settings" className="link">
                             <li className={classes.sidebarListItem}>
                             <Settings className={classes.sidebarIcon}/>
                             Settings
                         </li>
-                        </Link>
+                        </Link> */}
                     </ul>
                 </div>
             </div>

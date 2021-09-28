@@ -31,7 +31,7 @@ const AppointmentData = [
 export default function Calendar() {
     const [apptsList, setApptsList] = useState([]);
     const [apptsListModified, setApptsListModified] = useState([]);
-
+    const [slot, setSlot] = useState();
 
     useEffect(() => {
         console.log("in usefect")
@@ -46,6 +46,10 @@ export default function Calendar() {
         fetchData()
       }, []);
 
+    const handleSlotChange = (event) => {
+        console.log(event.target.value)
+        setSlot(event.target.value)
+    }
     return (
         <div className="calendar">
             <div className="rowStyling">
@@ -54,21 +58,21 @@ export default function Calendar() {
                 <label className="lbl-inf">Filters</label>
                     <div>
                         <input type="checkbox"></input><span className="chk-spn">Show Events</span><br></br><br></br>
-                        <input type="checkbox"></input><span className="chk-spn">Canceled Appointments</span><br></br><br></br>
+                        {/* <input type="checkbox"></input><span className="chk-spn">Canceled Appointments</span><br></br><br></br>
                         <input type="checkbox"></input><span className="chk-spn">Missed Appointments</span><br></br><br></br>
-                        <input type="checkbox"></input><span className="chk-spn">Normal Appointments</span><br></br><br></br>
+                        <input type="checkbox"></input><span className="chk-spn">Normal Appointments</span><br></br><br></br> */}
                     </div>
                 </div>
                 <div>
                     <label className="lbl-inf">Settings</label><br></br>
-                    <div>
+                    <div className="settingsStyling">
                         <span>Slot Duration</span>
-                        <select className="dur-slt">
-                            <option>5 min</option>
-                            <option>10 min</option>
-                            <option>15 min</option>
-                            <option>20 min</option>
-                            <option>30 min</option>
+                        <select className="dur-slt" onChange={handleSlotChange} defaultValue={30}>
+                            <option value={5}>5 min</option>
+                            <option value={10}>10 min</option>
+                            <option value={15}>15 min</option>
+                            <option value={20}>20 min</option>
+                            <option value={30}>30 min</option>
                         </select>
                     </div>
                 </div>
@@ -82,7 +86,7 @@ export default function Calendar() {
                 eventSettings={{ dataSource: AppointmentData }}
                 timeScale={{
                     enable:'true',
-                    interval:15,
+                    interval: slot,
                 }}
             >
                 <Inject services={[Day, Week, WorkWeek, Month]}/>

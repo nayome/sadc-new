@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function Header() {
+export default function Topnavbar(props) {
     // let history = useHistory();
     const classes = useStyles();
     const [inputValue, setInputValue] = useState('');
@@ -70,8 +70,7 @@ export default function Header() {
 
 
     return (
-        <AppBar position="sticky" className={classes.root}>
-            <Toolbar className={classes.gridCotainer}>
+
                 <Grid container
                     alignItems="center">
                     <Grid item>
@@ -124,11 +123,6 @@ export default function Header() {
                         }}/>
                     </Grid>
                     <Grid item sm></Grid>
-                    <Grid item>
-                        Sai Avighna Dental Clinic
-                    </Grid>
                 </Grid>
-            </Toolbar>
-        </AppBar>
     )
 }
