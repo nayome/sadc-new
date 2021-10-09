@@ -47,7 +47,7 @@ const useStyles = makeStyles({
   
 export default function RadioGroup(props) {
     const classes = useStyles();
-    const { name, label, value, onChange, items } = props;
+    const { name, label, value, defaultValue, onChange, items } = props;
 
     return (
         <FormControl className={classes.root}>
@@ -55,6 +55,7 @@ export default function RadioGroup(props) {
             <MuiRadioGroup row
                 name={name}
                 value={value}
+                defaultValue={items[0].title}
                 onChange={onChange}>
                 {
                     items.map(

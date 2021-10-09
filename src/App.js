@@ -8,13 +8,11 @@ import RegisterPatient from "./pages/PatientRegistration/RegisterPatient.js";
 import {  CssBaseline, createTheme, ThemeProvider } from '@material-ui/core';
 import PatientProfile from "./pages/PatientProfile/PatientProfile.js";
 import {GoogleLogin, GoogleLogout} from "react-google-login";
-import React, { useState, useEffect } from 'react';
-import {AppBar, Grid, Typography} from '@material-ui/core';
+import React, { useState } from 'react';
+import {AppBar, Grid} from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import LogoutIcon from '@mui/icons-material/Logout';
-const {OAuth2Client} = require('google-auth-library');
 
 const theme = createTheme({
   palette: {

@@ -130,6 +130,9 @@ function createSlots(slotConfig){
         position: 'relative',
         marginRight: '20px',
         padding:'20px',
+        },
+        styling: {
+          marginLeft: '24px',
         }
   }));
 
@@ -289,7 +292,7 @@ export default function Appointment(props) {
 
    
     return (
-        <div>
+        <div className={classes.styling}>
           <Form onSubmit={handleSubmit}>
         <Grid container spacing={12}>
 

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import {  AppBar, Toolbar, Grid, IconButton, makeStyles } from '@material-ui/core'
+import {  Grid, IconButton, makeStyles } from '@material-ui/core'
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useHistory } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -28,9 +29,18 @@ export default function Topnavbar(props) {
     const history = useHistory();
 
     const handleAdd= () => {
-        console.log("add")
-        history.push('/registerPatient'); // <--- The page you want to redirect your user to.
-
+        console.log(history.location.pathname )
+        if(history.location.pathname === '/registerPatient') {
+            console.log("am here")
+            history.push({
+                pathname: '/',
+              });  
+            history.goBack();
+        } else {
+            history.push({
+                pathname: '/registerPatient',
+              });      
+        }
     }
 
     const callSearch = (searchText) => {
@@ -43,7 +53,7 @@ export default function Topnavbar(props) {
             console.log(response)    
             if (response.data === "")
             {
-                setOptions([]);
+                setOptions([{"firstName":"+ Add new patient"}]);
             }
             else 
             {
@@ -58,8 +68,9 @@ export default function Topnavbar(props) {
     }
 
     React.useEffect(() => {
-        console.log("ran effect")
+        console.log("ran effect top nav bar")
         if (inputValue === '') {
+            setOptions([]);
             return;
         }
         else {
@@ -91,7 +102,7 @@ export default function Topnavbar(props) {
                         filterSelectedOptions
                         renderOption={(option) => (
                           <React.Fragment>
-                            {option.firstName} ({option.patientId})                          
+                            {option.firstName} { (options.patientId && option.patientId)}                          
                             </React.Fragment>
                         )}
                         style={{ width: 300 }}
@@ -106,13 +117,21 @@ export default function Topnavbar(props) {
                         )}
                         onChange={(event, value) => {
                             console.log("i am un change")
-                            console.log(value.patientId)
-                            history.push({
-                                pathname: '/patientDetails',
-                                state: {detail: value.patientId},
-                              });
-                            setInputValue("");
-                            setOptions([]);
+                            if(value.firstName === "+ Add new patient"){
+                                console.log(inputValue)
+                                    history.push({
+                                        pathname: '/registerPatient',
+                                        state: {detail: inputValue},
+                                    });      
+                            } else {
+                                console.log(value.patientId)
+                                history.push({
+                                    pathname: '/patientDetails',
+                                    state: {detail: value.patientId},
+                                  });  
+                                setInputValue("");
+                                setOptions([]);
+                            }
                         }} // prints the selected value
                         onInputChange={(event, newInputValue) => {
                             if(event.type === "change")
