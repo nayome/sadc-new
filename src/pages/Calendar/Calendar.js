@@ -32,16 +32,26 @@ export default function Calendar() {
     const [apptsList, setApptsList] = useState([]);
     const [apptsListModified, setApptsListModified] = useState([]);
     const [slot, setSlot] = useState();
+    const [dateRange, setDateRange] = useState('Day');
 
     useEffect(() => {
         console.log("in usefect")
         const fetchData = async () => {
             console.log("in fetch")
-            const respGlobal = await axios(`http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/Appointment/patientId/32`);
+            const respGlobal = await axios.post(`http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/Appointment/list`, {"startDate":"2021-10-13",
+            "endDate": "2021-10-13"});
             console.log(respGlobal);
-
-            setApptsList(respGlobal.data);
-            console.log(apptsList);   
+            var tempList = []
+            { respGlobal.data.map(item => {
+                var list = (item.StartTime.split(','))
+                item.StartTime = new Date(list[0], list[1],list[2],list[3],list[4]);
+                var endList = (item.EndTime.split(','))
+                item.EndTime = new Date(endList[0], endList[1],endList[2],endList[3],endList[4]);
+                tempList.push(item)
+            })}
+            console.log(tempList);   
+            setApptsList(tempList);
+            console.log(apptsList)
         };    
         fetchData()
       }, []);
@@ -79,11 +89,11 @@ export default function Calendar() {
             </div>
             <div className="row-2-cal">
             <ScheduleComponent 
-                currentView='Week' 
+                currentView={dateRange} 
                 selectedDate={new Date((new Date().getFullYear()), (new Date().getMonth()+1), (new Date().getDate()))}
                 startHour='10:00' 
                 endHour='20:00' 
-                eventSettings={{ dataSource: AppointmentData }}
+                eventSettings={{ dataSource: apptsList }}
                 timeScale={{
                     enable:'true',
                     interval: slot,

@@ -12,7 +12,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useHistory } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import { useLocation } from "react-router-dom";
-
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const genderItems = [
     { id: 'male', title: 'Male' },
@@ -85,16 +86,18 @@ const useStyles = makeStyles((theme) => ({
         display: 'block',
         gap: '10px',
         paddingRight:'20px',
+        height: '100%',
     },
     tableStyling: {
         border: '1px solid red'
     },
     patientsTable: {
-        width: '100%', 
+        width: '100%',
         fontSize: '16px',
         borderSpacing: '0',
         borderCollapse: 'collapse',
-    },
+        display: 'block',
+},
     patientsTableTd: {
         border: '1px solid rgb(170, 164, 164)',
         padding: '10px',
@@ -104,6 +107,21 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: '#ddd',
         }
     },
+    patientsTableHead: {
+               display: 'block',
+    },
+    patientsTableBody: {
+               display: 'block',
+                height: '200px',
+                overflowY: 'auto',
+                overflowX: 'auto',
+    },
+    iconStyling: {
+         fontSize: '20px !important',
+         alignItems: 'bottom',
+         marginRight: '8px',       
+        verticalAlign: 'bottom',
+  }
   }));
   
 const intialFValues = {
@@ -292,13 +310,11 @@ function RegisterPatient() {
         }
         else if((event.target.checked === false) && (selectedMC.indexOf(event.target.name) > -1))
         {
-            var index = selectedMC.indexOf(event.target.value)
-            selectedMC.splice(index, 1);
+            var arr = selectedMC.filter(item => (
+                item !== event.target.name))
+                setSelectedMC(arr)
         }
-
-        
         console.log(selectedMC)
-
         setValues({
             ...values,
             ["medicalHistory"]: selectedMC,
@@ -313,7 +329,8 @@ function RegisterPatient() {
             console.log(response);
             setMedicalConditions(response.data.MedicalConditions);
             setMedicalConditionsAll(response.data.MedicalConditions);
-
+            selectedMC.push(inputValue);
+            setInputValue("");
         })
         .catch (error => {
             console.log(error);
@@ -480,7 +497,7 @@ function RegisterPatient() {
                         </div>
 
                         <div className={classes.medCondtnContainer}>
-                            <div>
+                        <div>
                                 <label style={{fontSize:'20px'}}>Medical History</label>
                                 <TextField
                                     variant="outlined"
@@ -490,12 +507,11 @@ function RegisterPatient() {
                                     style={{width: 278 }}
                                     value={inputValue}
                                 />
-                            </div>
-
+                        </div>
                             <table className={classes.patientsTable}>
-                                        <thead>
+                                        <thead className={classes.patientsTableHead}>
                                         </thead>
-                                        <tbody>
+                                        <tbody className={classes.patientsTableBody}>
                                             { medicalConditions.map(condition => 
                                                 (
                                                     condition.conditionId != "-1" ? (  
@@ -503,9 +519,10 @@ function RegisterPatient() {
                                                         <td className={classes.patientsTableTd} style={{width:'40px'}}>
                                                         <input type="checkbox" 
                                                                 onChange={mcEdited} 
-                                                                name={condition.conditionName}/>
+                                                                name={condition.conditionName}
+                                                                checked={(selectedMC.indexOf(condition.conditionName) > -1)} />
                                                         </td>
-                                                        <td className={classes.patientsTableTd} >{condition.conditionName}</td>
+                                                        <td className={classes.patientsTableTd} style={{width:'235px'}}>{condition.conditionName}</td>
                                                     </tr>
                                                     ) : 
                                                     (

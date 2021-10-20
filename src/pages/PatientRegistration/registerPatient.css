@@ -7,3 +7,20 @@
     margin: 20px;
     margin-left: 70px;
 }
+
+.ulMed {
+    list-style: none;
+    border: 1px solid grey;
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    overflow: auto;
+    height: 425px;
+    max-height: 425px;
+}
+
+.liMed {
+    font-size: 15px;
+    border-bottom: solid 1px grey;
+    padding: 10px;
+}
