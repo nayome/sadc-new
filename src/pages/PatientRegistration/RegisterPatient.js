@@ -88,9 +88,6 @@ const useStyles = makeStyles((theme) => ({
         paddingRight:'20px',
         height: '100%',
     },
-    tableStyling: {
-        border: '1px solid red'
-    },
     patientsTable: {
         width: '100%',
         fontSize: '16px',
@@ -112,16 +109,13 @@ const useStyles = makeStyles((theme) => ({
     },
     patientsTableBody: {
                display: 'block',
-                height: '200px',
+                height: '430px',
                 overflowY: 'auto',
                 overflowX: 'auto',
     },
-    iconStyling: {
-         fontSize: '20px !important',
-         alignItems: 'bottom',
-         marginRight: '8px',       
-        verticalAlign: 'bottom',
-  }
+  tableDiv:{
+    borderBottom: '1px solid rgb(170, 164, 164)',
+    }
   }));
   
 const intialFValues = {
@@ -243,6 +237,7 @@ function RegisterPatient() {
         .catch(error => {
             console.log(error)
             setMedicalConditions([medicalConditionsAll]);
+            setNotify({isOpen:true,message:'Condition could not be added',type:'error'})
         })
     }
 
@@ -251,7 +246,6 @@ function RegisterPatient() {
         console.log(location)
         setInputValue("");
         var test= (location.state && location.state.detail)
-        console.log(test);
         if(test === "") {
             setValues({
                 ...values,
@@ -270,10 +264,16 @@ function RegisterPatient() {
             console.log("in fetch")
             const respGlobal = await axios(`http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/conditions/all`);
             console.log(respGlobal);
-            setMedicalConditions(respGlobal.data.MedicalConditions);
-            setMedicalConditionsAll(respGlobal.data.MedicalConditions);
-            console.log(medicalConditions);   
-            console.log(medicalConditionsAll);   
+            if(respGlobal.data === "")
+            {
+                console.log("error in fetching medical conditions");
+
+            } else {
+                setMedicalConditions(respGlobal.data.MedicalConditions);
+                setMedicalConditionsAll(respGlobal.data.MedicalConditions);
+                console.log(medicalConditions);   
+                console.log(medicalConditionsAll);
+            }   
         };    
         fetchData()
     }, [])
@@ -508,6 +508,7 @@ function RegisterPatient() {
                                     value={inputValue}
                                 />
                         </div>
+                        <div className={classes.tableDiv}>
                             <table className={classes.patientsTable}>
                                         <thead className={classes.patientsTableHead}>
                                         </thead>
@@ -533,6 +534,7 @@ function RegisterPatient() {
                                         ))}
                                     </tbody>
                             </table>
+                            </div>
                         </div>
 
                     </div>

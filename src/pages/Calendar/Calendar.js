@@ -1,83 +1,117 @@
-import React,{useEffect,useState} from 'react';
+import React, { Component } from 'react';
 import "./calendar.css";
-import { Inject, ScheduleComponent, Day, Week,WorkWeek, Month, EventSettingsModel} from '@syncfusion/ej2-react-schedule';
-import {DataManager, WebApiAdaptor} from '@syncfusion/ej2-react-schedule';
+import { ScheduleComponent, Day, Week, Inject, ViewsDirective, ViewDirective, ActionEventArgs } from '@syncfusion/ej2-react-schedule';
 import axios from 'axios';
 
-const AppointmentData = [
-    {
-        Id: 1, //appointment Id
-        Subject: 'David', //patient Name
-        StartTime: new Date(2021, 9, 22, 10, 15),
-        EndTime: new Date(2021, 9, 22, 10, 30),
-        IsAllDay: false,
-    },
-    {
-    Id: 2, //appointment Id
-    Subject: 'Jesse', //patient Name
-    StartTime: new Date(2021, 9, 22, 11, 0),
-    EndTime: new Date(2021, 9, 22, 11, 30),
-    IsAllDay: false,
-},
-{
-    Id: 3, //appointment Id
-    Subject: 'Nayome', //patient Name
-    StartTime: new Date(2021, 9, 23, 11, 0),
-    EndTime: new Date(2021, 9, 23, 11, 30),
-    IsAllDay: false,
+function formatDate(date) {
+    console.log(date);
+    date = date.split(" ");
+    console.log(date);
+    let monthsList = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+  
+    let year = date[3];
+    let month = `0${(monthsList.indexOf(date[1]) + 1)}`.slice(-2);
+    let day = date[2];
+  
+    return `${year}-${month}-${day}`;      
 }
-];
 
-export default function Calendar() {
-    const [apptsList, setApptsList] = useState([]);
-    const [apptsListModified, setApptsListModified] = useState([]);
-    const [slot, setSlot] = useState();
-    const [dateRange, setDateRange] = useState('Day');
+class Calendar extends Component {
+    constructor(props) {
+        super(props);
 
-    useEffect(() => {
-        console.log("in usefect")
-        const fetchData = async () => {
-            console.log("in fetch")
-            const respGlobal = await axios.post(`http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/Appointment/list`, {"startDate":"2021-10-13",
-            "endDate": "2021-10-13"});
-            console.log(respGlobal);
-            var tempList = []
-            { respGlobal.data.map(item => {
-                var list = (item.StartTime.split(','))
-                item.StartTime = new Date(list[0], list[1],list[2],list[3],list[4]);
-                var endList = (item.EndTime.split(','))
-                item.EndTime = new Date(endList[0], endList[1],endList[2],endList[3],endList[4]);
-                tempList.push(item)
-            })}
-            console.log(tempList);   
-            setApptsList(tempList);
-            console.log(apptsList)
-        };    
-        fetchData()
-      }, []);
-
-    const handleSlotChange = (event) => {
-        console.log(event.target.value)
-        setSlot(event.target.value)
+        this.state = {
+            appointmentsList: [],
+            slot: 30,
+            dateRange: 'Day',
+        }
     }
-    return (
-        <div className="calendar">
+
+    makeServiceCall(startDate, endDate ) {
+        console.log(startDate);
+        console.log(endDate);
+        axios.post(`http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/Appointment/list`,
+        {
+            "startDate": startDate,
+            "endDate": endDate
+        })
+        .then(response => {
+            console.log(response)
+            this.setState({appointmentsList: response.data.details})
+            // console.log(this.state.appointmentsList)
+
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
+    }
+
+    componentDidMount() {
+        var curr = new Date; // get current date
+        var first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+        var last = first + 6; // last day is the first day + 6
+
+        var firstday = new Date(curr.setDate(first)).toISOString().split('T')[0];
+        var lastday = new Date(curr.setDate(last)).toISOString().split('T')[0];
+
+        this.makeServiceCall(firstday, lastday)
+
+    }
+    
+    handleSlotChange(event) {
+        this.setState({slot: event.target.value})
+    }
+
+
+    onActionComplete(args){
+        console.log(args);
+
+        if(args.event && ((args.requestType === 'dateNavigate') || (args.requestType === 'viewNavigate'))) {
+            console.log("Yes")
+            var currentViewDates = this.scheduleObj.getCurrentViewDates(); 
+            var convDate = formatDate(currentViewDates[0].toString())
+            console.log(convDate)
+            var startDate = formatDate(currentViewDates[0].toString()); 
+            var endDate = formatDate(currentViewDates[currentViewDates.length - 1].toString()); 
+            console.log(startDate); 
+            console.log(endDate); 
+            this.makeServiceCall(startDate,endDate)
+        }
+        else {
+            console.log("nNo")
+        }
+      }
+
+    render() {
+        return (
+            <div className="calendar">
             <div className="rowStyling">
             <div className="row-1-cal">
               <div>
                 <label className="lbl-inf">Filters</label>
                     <div>
                         <input type="checkbox"></input><span className="chk-spn">Show Events</span><br></br><br></br>
-                        {/* <input type="checkbox"></input><span className="chk-spn">Canceled Appointments</span><br></br><br></br>
-                        <input type="checkbox"></input><span className="chk-spn">Missed Appointments</span><br></br><br></br>
-                        <input type="checkbox"></input><span className="chk-spn">Normal Appointments</span><br></br><br></br> */}
                     </div>
                 </div>
                 <div>
                     <label className="lbl-inf">Settings</label><br></br>
                     <div className="settingsStyling">
                         <span>Slot Duration</span>
-                        <select className="dur-slt" onChange={handleSlotChange} defaultValue={30}>
+                        <select className="dur-slt" onChange={this.handleSlotChange.bind(this)} defaultValue={30}>
                             <option value={5}>5 min</option>
                             <option value={10}>10 min</option>
                             <option value={15}>15 min</option>
@@ -89,63 +123,30 @@ export default function Calendar() {
             </div>
             <div className="row-2-cal">
             <ScheduleComponent 
-                currentView={dateRange} 
-                selectedDate={new Date((new Date().getFullYear()), (new Date().getMonth()+1), (new Date().getDate()))}
+                ref={schedule => this.scheduleObj = schedule}
+                // currentView={this.dateRange} 
+                // selectedDate={new Date()}
                 startHour='10:00' 
                 endHour='20:00' 
-                eventSettings={{ dataSource: apptsList }}
+                actionComplete={this.onActionComplete.bind(this)}
+                eventSettings={{ dataSource: this.state.appointmentsList }}
                 timeScale={{
                     enable:'true',
-                    interval: slot,
+                    interval: this.state.slot,
                 }}
             >
-                <Inject services={[Day, Week, WorkWeek, Month]}/>
-            </ScheduleComponent>;
-            </div>
-            {/* <div className="row-3-cal">
-                <div>
-                    <label className="lbl-inf">Today's Schedule</label>
-                </div>
-                <div className="appointment-state-wrapper"> 
-                    <div className="appointment-state state-schedule"> 
-                        <div className="appointment-state-number-wrapper">
-                            <span>0</span>
-                        </div>
-                        <div className="appointment-state-detail-wrapper">
-                            <span>Schedule</span>
-                        </div>
-                    </div>
-                    <div className="appointment-state state-waiting"> 
-                        <div className="appointment-state-number-wrapper">
-                            <span>0</span>
-                        </div>
-                        <div className="appointment-state-detail-wrapper">
-                            <span>Waiting</span>
-                        </div>
-                    </div>
-                    <div className="appointment-state state-engage"> 
-                        <div className="appointment-state-number-wrapper">
-                            <span>0</span>
-                        </div>
-                        <div className="appointment-state-detail-wrapper">
-                            <span>Enagage</span>
-                        </div>
-                    </div>
-                    <div className="appointment-state state-checkout"> 
-                        <div className="appointment-state-number-wrapper">
-                            <span>0</span>
-                        </div>
-                        <div className="appointment-state-detail-wrapper">
-                            <span>Done</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="appointment-list">
-                    <span>No Appointments</span>
-                </div>
-            </div>*/}
+                <ViewsDirective>
+                    <ViewDirective option='Day' interval={3} displayName='3 Days'/>
+                    <ViewDirective option='Week' interval={1} displayName='1 Week'/>
+                </ViewsDirective>
+                <Inject services={[Day, Week]}/>
+            </ScheduleComponent>
+            </div>   
+        </div>
+        </div>   
+        );
+    }
+
+    }
+export default Calendar;   
  
-            </div> 
-       </div>
-    )
-}
