@@ -291,7 +291,6 @@ function RegisterPatient() {
                 console.log("in popup",response);
                  setNotify({isOpen:true,message:'Submitted Successfully',type:'success'})
                 setRecordForEdit(response.data.patientId)
-            // setRecordForEdit("98")
                  setOpenPopup(true);
                  resetForm();
             })

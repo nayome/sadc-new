@@ -124,6 +124,7 @@ function App() {
                      </div>
                      ) : (
                       <GoogleLogin
+                      redirectUri="http://ec2-3-110-123-91.ap-south-1.compute.amazonaws.com:443/"
                       clientId="374829528903-oqnhvjlmmgi5r7d0rfk3qjerhabnovfm.apps.googleusercontent.com"
                       render={renderProps => (
                         <Button onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</Button>
