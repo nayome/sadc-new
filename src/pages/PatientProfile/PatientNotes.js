@@ -74,7 +74,8 @@ export default function PatientNotes(props) {
         console.log("record for edit", recordForEdit)
             setValues({
                 ...values,
-                ["patientId"]: recordForEdit
+                ["patientId"]: recordForEdit,
+                ["notes"]: ""
             })
         console.log(values)
     }, [props])
@@ -133,9 +134,9 @@ export default function PatientNotes(props) {
                 </div>
             </Form>
             <Notification
-                    notify={notify}
-                    setNotify={setNotify}
-                />
+                notify={notify}
+                setNotify={setNotify}
+            />
         </Paper>
     )
 }

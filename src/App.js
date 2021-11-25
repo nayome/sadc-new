@@ -114,7 +114,7 @@ function App() {
                         <div className={classes.divStyling}>
                           <Topnavbar/>
                           <GoogleLogout
-                          clientId="374829528903-oqnhvjlmmgi5r7d0rfk3qjerhabnovfm.apps.googleusercontent.com"
+                          clientId="141794738514-c2q27fia1ju4vfm9pe6aenqba3609og4.apps.googleusercontent.com"
                           render={renderProps => (
                             <Button onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</Button>
                           )}
