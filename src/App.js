@@ -124,7 +124,7 @@ function App() {
                      </div>
                      ) : (
                       <GoogleLogin
-                      redirectUri="http://www.saiavighnadental.com/oauth2callback"
+                      redirectUri="http://www.saiavighnadental.com"
                       clientId="374829528903-oqnhvjlmmgi5r7d0rfk3qjerhabnovfm.apps.googleusercontent.com"
                       render={renderProps => (
                         <Button onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</Button>
