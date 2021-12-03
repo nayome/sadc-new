@@ -170,7 +170,7 @@ function PatientProfile() {
         console.log("in usefect")
         const fetchData = async () => {
             console.log("in fetch")
-            const respGlobal = await axios(`http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/${location.state.detail}`);
+            const respGlobal = await axios(`http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/${location.state.detail}`);
             console.log(respGlobal);
 
             setData(respGlobal.data);
@@ -187,7 +187,7 @@ function PatientProfile() {
         console.log("can delete")
        // 23
        
-       axios.get(`http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/delete/${location.state.detail}`)
+       axios.get(`http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/delete/${location.state.detail}`)
        .then(response => {
         console.log(response)
         setNotify({isOpen:true,message:'Patient Deleted Successfully',type:'success'})
