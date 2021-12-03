@@ -190,7 +190,7 @@ function RegisterPatient() {
         e.preventDefault()
          if(validate()){
             console.log(values);
-            axios.post('http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/upsert',values)
+            axios.post('http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com/ws/rest/IntegrationAPI/patients/upsert',values)
             .then (response => {
                 console.log("in submit",response);
                 setNotify({isOpen:true,message:'Patient Added Successfully',type:'success'})
@@ -221,7 +221,7 @@ function RegisterPatient() {
             console.log("in empty input")
             setMedicalConditions(medicalConditionsAll);
         } else {
-        axios.get(`http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/conditions/search/${event.target.value}`)
+        axios.get(`http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/conditions/search/${event.target.value}`)
         .then(response => {
             console.log(response)    
             if (response.data === "")
@@ -262,7 +262,7 @@ function RegisterPatient() {
         console.log(values)
         const fetchData = async () => {
             console.log("in fetch")
-            const respGlobal = await axios(`http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/conditions/all`);
+            const respGlobal = await axios(`http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/conditions/all`);
             console.log(respGlobal);
             if(respGlobal.data === "")
             {
@@ -286,7 +286,7 @@ function RegisterPatient() {
         // setRecordForEdit(item)
         if(validate()){
             console.log(values);
-            axios.post('http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/upsert',values)
+            axios.post('http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/upsert',values)
             .then (response => {
                 console.log("in popup",response);
                  setNotify({isOpen:true,message:'Submitted Successfully',type:'success'})
@@ -323,7 +323,7 @@ function RegisterPatient() {
     const rowClicked = () => {
         console.log("row clicked",inputValue);
         var reqJson = { "Name": inputValue};
-        axios.post('http://ec2-3-139-74-141.us-east-2.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/conditions/create',reqJson)
+        axios.post('http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/conditions/create',reqJson)
         .then (response => {
             console.log(response);
             setMedicalConditions(response.data.MedicalConditions);
