@@ -13,6 +13,8 @@ import {AppBar, Grid} from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import Login from "./Utils/Login.js";
+import Home from "./pages/Home/Home.js";
 
 const theme = createTheme({
   palette: {
@@ -109,8 +111,9 @@ function App() {
                         Sai Avighna Dental Clinic
                     </Grid>
                     <Grid item sm></Grid>
-                    <Grid item>
-                      {user ? (  
+                      <Grid item>
+                        <Button variant="text" color="primary" href="/login">Login</Button>
+                      {/* {user ? (  
                         <div className={classes.divStyling}>
                           <Topnavbar/>
                           <GoogleLogout
@@ -135,30 +138,32 @@ function App() {
                       cookiePolicy={'single_host_origin'}
                     />
                             
-                     )}
+                     )} */}
                     </Grid>
                 </Grid>
             </Toolbar> 
         </AppBar>
         <div className={classes.bodyStyling}>
-        { user ? (
+        {/* { user ? ( */}
             <div className={classes.container}>
-            <SideMenu/>
+            {/* <SideMenu/> */}
               <Switch>
                 <Route path="/dashboard"><Dashboard/></Route>
-                <Route exact path="/"><Calendar/></Route>
+                <Route exact path="/calendar"><Calendar/></Route>
+                <Route path="/login"><Login/></Route>
+                <Route path="/"><Home/></Route>
                 <Route path="/settings" exact component={Settings}></Route>
                 <Route path='/registerPatient' exact component={RegisterPatient}/>
                 <Route path='/patientDetails' exact component={PatientProfile} />
               </Switch>
           </div>
-        ) : (
+        {/* ) : (
           <div className={classes.contentStyling}>
             <h2 className={classes.labelStyling}>Welcome to Sai Avighna Dental Clinic</h2>
             <h4 className={classes.labelStyling}>Sign in with Google to get started</h4>
           </div>
         )
-        }
+        } */}
        </div>
       </div>
     </Router>
