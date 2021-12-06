@@ -3,19 +3,23 @@ import SideMenu from "./components/sidebar/SideMenu.js";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Calendar from "./pages/Calendar/Calendar.js";
 import Settings from "./pages/Settings/Settings.js";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import RegisterPatient from "./pages/PatientRegistration/RegisterPatient.js";
-import {  CssBaseline, createTheme, ThemeProvider } from '@material-ui/core';
 import PatientProfile from "./pages/PatientProfile/PatientProfile.js";
-import {GoogleLogin, GoogleLogout} from "react-google-login";
-import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {  CssBaseline, createTheme, ThemeProvider } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
 import {AppBar, Grid} from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import Login from "./Utils/Login.js";
-import Home from "./pages/Home/Home.js";
-
+import Login from "./pages/Login.js";
+import {ReactSession} from 'react-client-session';
+import PrivateRoute from './Utils/PrivateRoute';
+import PublicRoute from './Utils/PublicRoute';
+import { getUser, removeUserSession, setUserSession } from './Utils/Common';
+import Home from './pages/Home/Home.js';
+import { AppContext } from "./lib/contextLib";
+//admin@saiavighnadental.com
 const theme = createTheme({
   palette: {
     primary: {
@@ -83,90 +87,71 @@ const useStyles = makeStyles((theme) => ({
       }
     
 }));
+
+
+
 function App() {
   const classes = useStyles();
-  const [user, setUser] = useState("");
-
-  const responseGoogle = (response) => {
-    console.log(response);
-    setUser(response.profileObj.name)
-  }
-
-  const logout = () => {
-    console.log("logged out");
-    setUser();
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+// const [authLoading, setAuthLoading] = useState(true);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
+  function handleLogout() {
+    userHasAuthenticated(false);
+    removeUserSession();
   }
 
 
-
+  
   return (
     <ThemeProvider theme={theme}>
-    <Router>
-      <div>
+      <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
+      <Router>
+        <div>
           <AppBar position="sticky" className={classes.root}>
             <Toolbar className={classes.gridCotainer}>
                 <Grid container
                     alignItems="center">
                     <Grid item className={classes.nameStyling}>
-                        Sai Avighna Dental Clinic
+                        Sai Avighna Dental Clinic                            
                     </Grid>
                     <Grid item sm></Grid>
                       <Grid item>
-                        <Button variant="text" color="primary" href="/login">Login</Button>
-                      {/* {user ? (  
+                      {isAuthenticated ? (  
                         <div className={classes.divStyling}>
                           <Topnavbar/>
-                          <GoogleLogout
-                          clientId="141794738514-c2q27fia1ju4vfm9pe6aenqba3609og4.apps.googleusercontent.com"
-                          render={renderProps => (
-                            <Button onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</Button>
-                          )}
-                          buttonText="Logout"
-                          onLogoutSuccess={logout}
-                        />
-                     </div>
-                     ) : (
-                      <GoogleLogin
-                      redirectUri="https://www.saiavighnadental.com"
-                      clientId="374829528903-oqnhvjlmmgi5r7d0rfk3qjerhabnovfm.apps.googleusercontent.com"
-                      render={renderProps => (
-                        <Button onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</Button>
-                      )}
-                      buttonText="Login"
-                      onSuccess={responseGoogle}
-                      onFailure={responseGoogle}
-                      cookiePolicy={'single_host_origin'}
-                    />
-                            
-                     )} */}
+                          <Button variant="text" color="primary" href="/login" onClick={handleLogout}>Logout</Button>                            
+                        </div>
+                        ) : (
+                          <Button variant="text" color="primary" href="/login">Login</Button>                            
+                         )} 
                     </Grid>
                 </Grid>
             </Toolbar> 
         </AppBar>
         <div className={classes.bodyStyling}>
-        {/* { user ? ( */}
+        { isAuthenticated ? (
             <div className={classes.container}>
-            {/* <SideMenu/> */}
+            <SideMenu/>
               <Switch>
-                <Route path="/dashboard"><Dashboard/></Route>
-                <Route exact path="/calendar"><Calendar/></Route>
-                <Route path="/login"><Login/></Route>
-                <Route path="/"><Home/></Route>
-                <Route path="/settings" exact component={Settings}></Route>
-                <Route path='/registerPatient' exact component={RegisterPatient}/>
-                <Route path='/patientDetails' exact component={PatientProfile} />
+                <PublicRoute exact path="/"><Home/></PublicRoute>
+                <PublicRoute path="/login" component={Login} />
+                <PrivateRoute path="/dashboard" component={Dashboard} />
+                <PrivateRoute path="/calendar" component={Calendar} />
+                <PrivateRoute path="/settings" exact component={Settings}/>
+                <PrivateRoute path='/registerPatient' exact component={RegisterPatient}/>
+                <PrivateRoute path='/patientDetails' exact component={PatientProfile} />
               </Switch>
+
           </div>
-        {/* ) : (
-          <div className={classes.contentStyling}>
-            <h2 className={classes.labelStyling}>Welcome to Sai Avighna Dental Clinic</h2>
-            <h4 className={classes.labelStyling}>Sign in with Google to get started</h4>
-          </div>
-        )
-        } */}
+        ) : (
+          <Login/>
+         )
+        }  
        </div>
       </div>
-    </Router>
+      </Router>
+      </AppContext.Provider>
     <CssBaseline />
     </ThemeProvider>
   )

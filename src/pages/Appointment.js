@@ -170,7 +170,7 @@ export default function Appointment(props) {
           .then (response => {
               console.log(response);
               history.push({
-                pathname: '/',
+                pathname: '/calendar',
               });
               onClose(response.data.Id);
           })

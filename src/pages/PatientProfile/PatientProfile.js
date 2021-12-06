@@ -196,7 +196,7 @@ function PatientProfile() {
             isOpen: false
         })
         history.push({
-            pathname: '/',
+            pathname: '/calendar',
           });
       })
       .catch(error => {

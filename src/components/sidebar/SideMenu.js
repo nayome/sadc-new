@@ -69,7 +69,7 @@ function SideMenu() {
                             Dashboard
                         </li>
                         </Link> */}
-                        <Link to="/" className="link">
+                        <Link to="/calendar" className="link">
                         <li className={classes.sidebarListItem}>
                             <Event className={classes.sidebarIcon}/>
                             Calendar
