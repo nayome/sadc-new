@@ -43,7 +43,7 @@ class Calendar extends Component {
     makeServiceCall(startDate, endDate ) {
         console.log(startDate);
         console.log(endDate);
-        axios.post(`http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/Appointment/list`,
+        axios.post(`https://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:443/ws/rest/IntegrationAPI/Appointment/list`,
         {
             "startDate": startDate,
             "endDate": endDate
