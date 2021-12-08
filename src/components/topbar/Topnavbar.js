@@ -45,7 +45,7 @@ export default function Topnavbar(props) {
 
     const callSearch = (searchText) => {
         axios.get(
-            `http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/search/${searchText}`, { headers: {
+            `https://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:443/ws/rest/IntegrationAPI/patients/search/${searchText}`, { headers: {
                     searchBy: 'Key',
                     }}
         )
