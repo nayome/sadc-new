@@ -85,7 +85,7 @@ export default function PatientNotes(props) {
         e.preventDefault()
         console.log(values)
         if(validate()){
-            axios.post(' http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/patients/upsert',values)
+            axios.post(' https://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:443/ws/rest/IntegrationAPI/patients/upsert',values)
             .then (response => {
                 console.log(response);
                 setNotify({isOpen:true,message:'Note added successfully.',type:'success'})
