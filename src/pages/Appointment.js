@@ -166,7 +166,7 @@ export default function Appointment(props) {
         e.preventDefault()
         console.log(values);
         if(validate()){
-          axios.post('http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/Appointment/create',values)
+          axios.post('https://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:443/ws/rest/IntegrationAPI/Appointment/create',values)
           .then (response => {
               console.log(response);
               history.push({
