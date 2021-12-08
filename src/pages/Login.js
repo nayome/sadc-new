@@ -8,7 +8,7 @@ import { useAppContext } from "../lib/contextLib";
 
 async function loginUser(credentials) {
  console.log(credentials)
-  return fetch('http://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:9090/ws/rest/IntegrationAPI/Authenticate/user', {
+  return fetch('https://ec2-13-232-74-29.ap-south-1.compute.amazonaws.com:443/ws/rest/IntegrationAPI/Authenticate/user', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
